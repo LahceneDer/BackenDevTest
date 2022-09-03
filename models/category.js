@@ -8,6 +8,7 @@ let categorySchema = new mongoose.Schema({
   },
   parent_id: {
     type: String,
+    default: null
   },
 });
 

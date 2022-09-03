@@ -5,9 +5,7 @@ const Category = require("../models/category");
 // @access  Public
 exports.getCategories = async (req, res, next) => {
   const categories = await Category.find();
-  res
-    .status(200)
-    .json({ success: true, count: categories.length, data: categories });
+  res.status(200).json(categories);
 };
 
 // @desc    Get single category
@@ -18,7 +16,7 @@ exports.getCategory = async (req, res, next) => {
   if (!category) {
     return next(`category not found with id of ${req.params.id}`, 404);
   }
-  res.status(200).json({ success: true, data: bootcamp });
+  res.status(200).json({ success: true, data: category });
 };
 
 // @desc    Create new category

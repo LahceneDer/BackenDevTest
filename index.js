@@ -1,7 +1,10 @@
 const express = require("express");
 const cors = require("cors");
+const dotenv = require("dotenv");
 const connectDB = require("./utils/database");
 const YAML = require("yamljs");
+
+dotenv.config();
 
 //models
 const Product = require("./models/product");
@@ -18,7 +21,7 @@ const swaggerUi = require("swagger-ui-express");
 const app = express();
 
 // Connect to db
-connectDB();
+connectDB(process.env.MONGODB_URI);
 
 //cors policy
 app.use(cors());
@@ -35,6 +38,6 @@ app.use("/", (req, res, next) => {
   res.json({ text: "index" });
 });
 
-app.listen(4000, () => {
-  console.log(`server running on port 4000`);
+app.listen(process.env.PORT, () => {
+  console.log(`server running on port ${process.env.PORT}`);
 });

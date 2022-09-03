@@ -11,3 +11,114 @@ info:
     -url: http://localhost:4000
     description: This is my local Server
 schemes: [http]
+
+paths:
+  /api/products:
+    get:
+      summary: return products
+      description: It is just returning a list of products
+      responses:
+        200:
+          description: success
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                category-id:
+                  type: integer
+
+        400:
+          description: User Error
+        500:
+          description: Internal Server Error
+
+  #Get Request with path id
+  /api/products/{Id}:
+    get:
+      summary: Returns a product by ID.
+      description: Returns the Specific product
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+            example:
+              { id: 0, name: product1, category-id: 631257f63bb13ab14ad15bb3 }
+    delete:
+      summary: Delete a product by ID.
+      description: Delete the Specific product
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            oneOf:
+              - type: string
+              - type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+            example:
+              { id: 0, name: product1, category-id: 631257f63bb13ab14ad15bb3 }
+
+  # For Categories
+  /api/categories:
+    get:
+      summary: return categories
+      description: It is just returning a list of categories
+      responses:
+        200:
+          description: success
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                parent-id:
+                  type: string
+
+        400:
+          description: User Error
+        500:
+          description: Internal Server Error
+
+  #Get Request with path id
+  /api/categories/{Id}:
+    get:
+      summary: Returns a category by ID.
+      description: Returns the Specific category
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+            example:
+              {
+                id: 564257f63bb13ab1dfgh5xsd,
+                name: cat1,
+                category-id: 631257f63bb13ab1dfgh5era,
+              }
