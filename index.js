@@ -35,7 +35,7 @@ app.use("/api/categories", categoryRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJsdoc));
 
 app.use("/", (req, res, next) => {
-  res.json({ text: "index" });
+  res.json({ text: "index page" });
 });
 
 app.listen(process.env.PORT || 4000, () => {
