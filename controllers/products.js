@@ -59,6 +59,7 @@ exports.deleteProduct = async (req, res, next) => {
 exports.getProductsByCategoryId = async (req, res, next) => {
   let allCategories = [];
   var subcategories = [];
+  var products = [];
   let category;
   const findCategories = async (categoryId) => {
     try {
@@ -68,14 +69,27 @@ exports.getProductsByCategoryId = async (req, res, next) => {
       });
       subcategories.unshift(category);
       subcategories.map((item) => allCategories.push(item));
-      res.status(200).json({ success: true, data: allCategories });
+      let mypromise = () => {
+        return new Promise((resolve, reject) => {
+          allCategories.map(async (item) => {
+            product = await Product.find({ category_id: item._id });
+            if (product.length > 0) {
+              products.push(product);
+            }
+            resolve("dsf");
+          });
+        });
+      };
+      mypromise()
+        .then(() => {
+          res.status(200).json({ success: true, data: products });
+        })
+        .catch((error) => {
+          res.status(200).json({ success: false, data: error });
+        });
     } catch (error) {
       console.log(error);
     }
   };
-  const myPromise = new Promise((resolve, reject) => {
-    findCategories(req.params.categoryId);
-  });
-
-  myPromise.then(console.log(subcategories));
+  findCategories(req.params.categoryId);
 };

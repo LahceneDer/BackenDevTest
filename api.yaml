@@ -25,11 +25,11 @@ paths:
             items:
               type: object
               properties:
-                id:
+                _id:
                   type: integer
                 name:
                   type: string
-                category-id:
+                category_id:
                   type: integer
 
         400:
@@ -37,6 +37,43 @@ paths:
         500:
           description: Internal Server Error
 
+  /api/products/{categoryId}:
+    get:
+      summary: Returns products bycategory ID.
+      description: Returns a list of products by category ID
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                _id:
+                  type: integer
+                name:
+                  type: string
+                category_id:
+                  type: integer
+            example:
+              [
+                {
+                  _id: 234557f6edf13ab14ad15bb3,
+                  name: product1,
+                  category_id: 631257f63bb13ab14ad15bb3,
+                },
+                {
+                  _id: 175557f6edf13ab14ad15qs2,
+                  name: product3,
+                  category_id: 234557f6edf13ab14ad15bb3,
+                },
+              ]
   #Get Request with path id
   /api/products/{Id}:
     get:
@@ -55,7 +92,7 @@ paths:
           schema:
             type: object
             example:
-              { id: 0, name: product1, category-id: 631257f63bb13ab14ad15bb3 }
+              { _id: 0, name: product1, category_id: 631257f63bb13ab14ad15bb3 }
     delete:
       summary: Delete a product by ID.
       description: Delete the Specific product
@@ -64,16 +101,14 @@ paths:
           in: path
           required: true
           schema:
-            oneOf:
-              - type: string
-              - type: integer
+            - type: string
       responses:
         "200":
           description: OK
           schema:
             type: object
             example:
-              { id: 0, name: product1, category-id: 631257f63bb13ab14ad15bb3 }
+              { _id: 0, name: product1, category_id: 631257f63bb13ab14ad15bb3 }
 
   # For Categories
   /api/categories:
@@ -88,11 +123,11 @@ paths:
             items:
               type: object
               properties:
-                id:
+                _id:
                   type: string
                 name:
                   type: string
-                parent-id:
+                parent_id:
                   type: string
 
         400:
@@ -118,7 +153,7 @@ paths:
             type: object
             example:
               {
-                id: 564257f63bb13ab1dfgh5xsd,
+                _id: 564257f63bb13ab1dfgh5xsd,
                 name: cat1,
-                category-id: 631257f63bb13ab1dfgh5era,
+                category_id: 631257f63bb13ab1dfgh5era,
               }

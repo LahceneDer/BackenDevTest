@@ -7,7 +7,7 @@ let productSchema = new mongoose.Schema({
     trim: true,
   },
   category_id: {
-    type: Number,
+    type: mongoose.Types.ObjectId,
   },
 });
 
