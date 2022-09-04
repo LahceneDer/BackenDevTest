@@ -76,7 +76,7 @@ exports.getProductsByCategoryId = async (req, res, next) => {
             if (product.length > 0) {
               products.push(product);
             }
-            resolve("dsf");
+            resolve("resolved");
           });
         });
       };

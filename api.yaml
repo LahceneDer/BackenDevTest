@@ -2,14 +2,11 @@ swagger: "2.0"
 info:
   title: BackendDev swagger UI Docs
   description: BackendDev documentation made by Lahcene DERGHAM .
-  version: 1.0
+  version: "1.0"
   contact:
     email: l.dergham@esi-sba.dz
-  liscence:
-    name: ME
-  servers:
-    -url: http://localhost:4000
-    description: This is my local Server
+host: localhost:4000
+
 schemes: [http]
 
 paths:
@@ -36,6 +33,44 @@ paths:
           description: User Error
         500:
           description: Internal Server Error
+    post:
+      summary: used to insert data  to mongodb
+      description: It is just adding a new product
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: product
+          description: The product to create.
+          schema:
+            type: object
+            required:
+              - name
+              - category_id
+            properties:
+              name:
+                type: string
+              category_id:
+                type: string
+      responses:
+        200:
+          description: success
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                _id:
+                  type: string
+                name:
+                  type: string
+                parent_id:
+                  type: string
+
+        400:
+          description: User Error
+        500:
+          description: Internal Server Error
 
   /api/products/{categoryId}:
     get:
@@ -45,8 +80,7 @@ paths:
         - name: categoryId
           in: path
           required: true
-          schema:
-            type: string
+          type: string
       responses:
         "200":
           description: OK
@@ -83,9 +117,7 @@ paths:
         - name: productId
           in: path
           required: true
-          schema:
-            type: integer
-            format: int64
+          type: string
       responses:
         "200":
           description: OK
@@ -100,21 +132,54 @@ paths:
         - name: productId
           in: path
           required: true
-          schema:
-            - type: string
+          type: string
       responses:
         "200":
-          description: OK
-          schema:
-            type: object
-            example:
-              { _id: 0, name: product1, category_id: 631257f63bb13ab14ad15bb3 }
+          description: product is deleted
 
   # For Categories
   /api/categories:
     get:
       summary: return categories
       description: It is just returning a list of categories
+      responses:
+        200:
+          description: success
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                _id:
+                  type: string
+                name:
+                  type: string
+                parent_id:
+                  type: string
+
+        400:
+          description: User Error
+        500:
+          description: Internal Server Error
+    post:
+      summary: used to insert data  to mongodb
+      description: It is just adding a new category
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: product
+          description: The category to create.
+          schema:
+            type: object
+            required:
+              - name
+              - category_id
+            properties:
+              name:
+                type: string
+              parent_id:
+                type: string
       responses:
         200:
           description: success
@@ -144,8 +209,7 @@ paths:
         - name: categoryId
           in: path
           required: true
-          schema:
-            type: string
+          type: string
       responses:
         "200":
           description: OK
@@ -157,3 +221,14 @@ paths:
                 name: cat1,
                 category_id: 631257f63bb13ab1dfgh5era,
               }
+    delete:
+      summary: Delete a category by ID.
+      description: Delete the Specific category
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          type: string
+      responses:
+        "200":
+          description: category is deleted
