@@ -13,7 +13,7 @@ NodeJs + ExpressJs application based server that exposes a RESTful API
    - Heruko : [Link](https://nodejs-test-lahcene.herokuapp.com/)
    - Docker : to deploy the app with docker thes is two file : Dockerfile & docker compose file , just follow this steps
      - in the project path :
-       `docker-compose build docker-compose up `
+       `docker-compose build && docker-compose up `
      - the app will deployed on port 4000
 3. Other tools:
    - Swagger : Simplify API development for users => /api-docs
