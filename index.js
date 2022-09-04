@@ -21,7 +21,7 @@ const swaggerUi = require("swagger-ui-express");
 const app = express();
 
 // Connect to db
-connectDB(process.env.MONGODB_URI);
+connectDB();
 
 //cors policy
 app.use(cors());
@@ -38,6 +38,6 @@ app.use("/", (req, res, next) => {
   res.json({ text: "index" });
 });
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 4000, () => {
   console.log(`server running on port ${process.env.PORT}`);
 });
